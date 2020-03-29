@@ -18,7 +18,9 @@ export default new Vuex.Store({
       commit
     }) {
       try {
-        let response = await axios.get("http://localhost:4000");
+
+        //i made some changes here..i deployed and backend on heroku and changed the localhost url wit the heroku url
+        let response = await axios.get("https://codesource-corvid-data.herokuapp.com/");
         console.log(response.data);
         commit("SET_CASES", response.data.areas);
       } catch (err) {
