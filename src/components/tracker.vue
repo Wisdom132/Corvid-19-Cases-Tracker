@@ -15,7 +15,11 @@
           </div>
         </div>
 
-        <div class="uk-child-width-1-4@s uk-grid-match" uk-grid>
+        <div v-if="loading" class="uk-align-center">
+          <span uk-spinner="ratio: 4.5"></span>
+        </div>
+
+        <div v-else class="uk-child-width-1-4@s uk-grid-match" uk-grid>
           <div v-for="(data,key) in filteredCountries" :key="key">
             <div class="uk-card uk-card-default uk-card-hover uk-card-body">
               <div class="uk-card-badge uk-label">{{data.parentId}}</div>
@@ -40,12 +44,15 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      search: ""
+      search: "",
+      loading: false
     };
   },
   methods: {
     async getResultFromVuex() {
+      this.loading = true;
       await this.$store.dispatch("getAllCases");
+      this.loading = false;
     }
   },
   created() {
